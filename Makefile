@@ -73,12 +73,17 @@ create_bucket:
 	@gsutil mb -l ${REGION} -p ${PROJECT_ID} gs://${BUCKET_NAME}
 
 upload_data:
-		# @gsutil cp train_1k.csv gs://wagon-data-847-jaber/data/train_1k.csv
-	@gsutil cp -r ${LOCAL_PATH} gs://${BUCKET_NAME}/${BUCKET_FOLDER}/${BUCKET_FILE_NAME}
+	#@gsutil cp train_1k.csv gs://wagon-data-847-jaber/data/train_1k.csv
+	#@gsutil cp -r ${LOCAL_PATH} gs://${BUCKET_NAME}/${BUCKET_FOLDER}/${BUCKET_FILE_NAME}
+	@gsutil cp -r ${RECIPES} gs://${BUCKET_NAME}/${BUCKET_FOLDER}/${BUCKET_FILE_NAME}
+	
+upload_recipes_processed:
+	@gsutil cp -r ${RECIPES_PROCESSED} gs://${BUCKET_NAME}/${BUCKET_FOLDER}/${BUCKET_FILE_NAME}
+	
 	
 download_recipes:
-	@gsutil cp gs://${BUCKET_NAME}/${RECIPES} raw_data/
-	@gsutil cp gs://${BUCKET_NAME}/${BUCKET_FOLDER}/${RECIPES_PICTURES} raw_data/
+	@mkdir raw_data/Recipes
+	@gsutil cp gs://${BUCKET_NAME}/raw_data/Recipes/ raw_data/
 
 gcp_submit_training:
 	gcloud ai-platform jobs submit training ${JOB_NAME} \
