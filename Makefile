@@ -82,8 +82,8 @@ upload_recipes_processed:
 	
 	
 download_recipes:
-	@mkdir raw_data/Recipes
-	@gsutil cp gs://${BUCKET_NAME}/raw_data/Recipes/ raw_data/
+	#@mkdir raw_data/Recipes
+	@gsutil cp -r gs://${BUCKET_NAME}/${BUCKET_FOLDER}/raw_data/Recipes/ raw_data/
 
 gcp_submit_training:
 	gcloud ai-platform jobs submit training ${JOB_NAME} \
