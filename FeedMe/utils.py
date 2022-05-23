@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from sklearn.model_selection import train_test_split
+import pandas as pd
 
 # Dictionary that maps class names to IDs
 class_name_to_id_mapping = {
@@ -44,3 +45,16 @@ annotations.sort()
 # Split the dataset into train-valid-test splits
 train_images, val_images, train_annotations, val_annotations = train_test_split(images, annotations, test_size = 0.2, random_state = 1)
 val_images, test_images, val_annotations, test_annotations = train_test_split(val_images, val_annotations, test_size = 0.5, random_state = 1)
+
+def convert_labels(labels):
+    df = pd.read_csv(labels)
+    file_names = df["filename"].values
+    for file in file_names:
+        file_save_name = file[:-3] + "txt"
+        df_test = df[df["filename"] == file]
+        df_test["x_center"] = (df_test["xmax"] - df_test["xmin"])/2
+        df_test["y_center"] = (df_test["ymax"] - df_test["ymin"])/2
+        df_test["width"] = (df_test["xmax"] - df_test["xmin"])
+        df_test["height"] = (df_test["ymax"] - df_test["ymin"])
+        X = df_test[["x_center", "y_center", "width", "height"]].to_numpy()
+        np.savetxt(file_save_name, X)

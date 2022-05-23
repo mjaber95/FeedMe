@@ -65,6 +65,9 @@ include ${CONFIG}
 
 run_locally:
 	@python -m ${PACKAGE_NAME}.${FILENAME}
+	
+yolo_train:
+	@python train.py --img 640 --cfg YOLOv5_model/yolov5s.yaml --hyp YOLOv5_model/hyp.scratch.yaml --batch 32 --epochs 100 --data YOLOv5_model/model_data.yaml --weights yolov5s.pt --workers 24 --name yolo_road_det
 
 set_project:
 	@gcloud config set project ${PROJECT_ID}
@@ -94,6 +97,7 @@ gcp_submit_training:
 		--runtime-version=${RUNTIME_VERSION} \
 		--region ${REGION} \
 		--stream-logs
+		
 
 download_model:
 	@gsutil cp gs://${BUCKET_NAME}/models/taxifare/model.joblib google_model.joblib
