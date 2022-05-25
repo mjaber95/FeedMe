@@ -86,15 +86,8 @@ for row in range(data.shape[0]):
         one_image=data.Image_Name[row]
         recipe=data.Instructions[row]
 
-        #recipe_imgs.append(one_image)
-
 
         st.image(load_image(f"data/Food Images/{one_image}.jpg"),width=500);
-        #st.write(data.Title[row])
-
-
-
-
 
 
         open_modal = st.button("Recipe of " + data.Title[row])
@@ -122,9 +115,9 @@ for row in range(data.shape[0]):
 
 
                 for index, line in enumerate( ingredient):
-                    #line.lstrip("[")
                     line = re.sub("[['!@#$]", '', line)
                     st.write((index +1) ,"-" ,line )
+
 
 
                 html_string = '''
