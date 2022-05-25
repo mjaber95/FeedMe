@@ -100,7 +100,7 @@ gcp_submit_training:
 		
 
 download_model:
-	@gsutil cp gs://${BUCKET_NAME}/models/taxifare/model.joblib google_model.joblib
+	@gsutil cp  gs://${BUCKET_NAME}/models/taxifare/model.joblib google_model.joblib
 
 # ----------------------------------
 #      UPLOAD PACKAGE TO PYPI
