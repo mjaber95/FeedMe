@@ -10,7 +10,8 @@ import re
 import streamlit_modal as modal
 import streamlit.components.v1 as components
 
-
+# import torch
+# load model
 
 
 
@@ -63,7 +64,7 @@ if st.button('Get my recipe') :
 
 
 def load_data(nrows):
-    data = pd.read_csv('data/data.csv', nrows=nrows)
+    data = pd.read_csv('/Users/mamdouhjaber/code/mjaber95/FeedMe/raw_data/Recipes/Food Ingredients and Recipe Dataset with Image Name Mapping.csv', nrows=nrows)
 
     #lowercase = lambda x: str(x).lower()
     #data.rename(lowercase, axis='columns', inplace=True)
@@ -77,15 +78,15 @@ data = load_data(4)
 for row in range(data.shape[0]):
         one_image=data.Image_Name[row]
         recipe=data.Instructions[row]
-<<<<<<< Updated upstream
+# <<<<<<< Updated upstream
 
 
-        st.image(load_image(f"data/Food Images/{one_image}.jpg"),width=500);
-=======
+#         st.image(load_image(f"raw_data/Recipes/Food Images/{one_image}.jpg"),width=500);
+# =======
         ingredient=data.Cleaned_Ingredients[row]
-        st.image(load_image(f"data/Food Images/{one_image}.jpg"),width=500);
+        st.image(load_image(f"raw_data/Recipes/Food Images/{one_image}.jpg"),width=500);
         #st.write(data.Title[row])
->>>>>>> Stashed changes
+# >>>>>>> Stashed changes
 
 
         open_modal = st.button("Recipe of " + data.Title[row])
@@ -110,11 +111,11 @@ for row in range(data.shape[0]):
                     line = re.sub("[['!@#$]", '', line)
                     st.write((index +1) ,"-" ,line )
 
-<<<<<<< Updated upstream
+# <<<<<<< Updated upstream
 
 
-=======
->>>>>>> Stashed changes
+# =======
+# >>>>>>> Stashed changes
                 html_string = '''
                 <h2> Steps : </h2>
 
