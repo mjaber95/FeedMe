@@ -6,46 +6,41 @@ import numpy as np
 from urllib.error import URLError
 from PIL import Image
 import re
-
+import time
 import streamlit_modal as modal
 import streamlit.components.v1 as components
+import torch
 
-# import torch
-# load model
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='/Users/mamdouhjaber/code/mjaber95/FeedMe/YOLOv5_model/best.pt')
 
-
-
+#col1, col2, col3 = st.columns([3, 1])
 
 def load_image(image_file):
 	img = Image.open(image_file)
 	return img
-st.header("FeedMe")
+st.sidebar.header("FeedMe")
 st.subheader("Fridge Image")
-image_file = st.file_uploader("Upload Images", type=["png","jpg","jpeg"]) # check supported data for test
+image_file = st.sidebar.file_uploader("Open your fridge!", type=["png","jpg","jpeg"]) # check supported data for test
 
 if image_file is not None:
-
-			# To See details
+	# To See details
 	file_details = {"filename":image_file.name, "filetype":image_file.type,
                             "filesize":image_file.size};
-	st.write(file_details);
+    # To View Uploaded Image
+	st.sidebar.image(load_image(image_file),width=250);
 
-
-              # To View Uploaded Image
-	st.image(load_image(image_file),width=250);
-
-
-
-if st.button('Get my recipe') :
+if st.sidebar.button('Get my recipe') :
     if image_file is  None:
         st.write('Can you shome me your fridge please :smile:  :smiling_imp:')
     else:
         # print is visible in the server output, not in the page
         print('button clicked!')
+        results = model(load_image(image_file))
+        #st.image(results.imgs[0],width=500)
+        results.pandas().xyxy[0]
+        results.show()
         st.write('Your Fridg contains :')
         st.write('Wow! You can prepare one of those recipes: ')
-
-        import time
 
         'We are looking for the perfect recepies for you...'
 
@@ -58,10 +53,8 @@ if st.button('Get my recipe') :
             latest_iteration.text(f'Iteration {i+1}')
             bar.progress(i + 1)
             time.sleep(0.1)
-
-
+            
         '...and now we\'re done! Choose your recipe'
-
 
 def load_data(nrows):
     data = pd.read_csv('/Users/mamdouhjaber/code/mjaber95/FeedMe/raw_data/Recipes/Food Ingredients and Recipe Dataset with Image Name Mapping.csv', nrows=nrows)
@@ -78,15 +71,10 @@ data = load_data(4)
 for row in range(data.shape[0]):
         one_image=data.Image_Name[row]
         recipe=data.Instructions[row]
-# <<<<<<< Updated upstream
 
-
-#         st.image(load_image(f"raw_data/Recipes/Food Images/{one_image}.jpg"),width=500);
-# =======
         ingredient=data.Cleaned_Ingredients[row]
         st.image(load_image(f"raw_data/Recipes/Food Images/{one_image}.jpg"),width=500);
         #st.write(data.Title[row])
-# >>>>>>> Stashed changes
 
 
         open_modal = st.button("Recipe of " + data.Title[row])
@@ -111,11 +99,6 @@ for row in range(data.shape[0]):
                     line = re.sub("[['!@#$]", '', line)
                     st.write((index +1) ,"-" ,line )
 
-# <<<<<<< Updated upstream
-
-
-# =======
-# >>>>>>> Stashed changes
                 html_string = '''
                 <h2> Steps : </h2>
 
