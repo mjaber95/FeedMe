@@ -35,8 +35,6 @@ if image_file is not None:
 
 
 
-
-
 if st.button('Get my recipe') :
     if image_file is  None:
         st.write('Can you shome me your fridge please :smile:  :smiling_imp:')
@@ -64,8 +62,6 @@ if st.button('Get my recipe') :
         '...and now we\'re done! Choose your recipe'
 
 
-
-
 def load_data(nrows):
     data = pd.read_csv('data/data.csv', nrows=nrows)
 
@@ -78,23 +74,18 @@ def load_data(nrows):
 
 data = load_data(4)
 
-
-
-
-
 for row in range(data.shape[0]):
         one_image=data.Image_Name[row]
         recipe=data.Instructions[row]
-
-        #recipe_imgs.append(one_image)
+<<<<<<< Updated upstream
 
 
         st.image(load_image(f"data/Food Images/{one_image}.jpg"),width=500);
+=======
+        ingredient=data.Cleaned_Ingredients[row]
+        st.image(load_image(f"data/Food Images/{one_image}.jpg"),width=500);
         #st.write(data.Title[row])
-
-
-
-
+>>>>>>> Stashed changes
 
 
         open_modal = st.button("Recipe of " + data.Title[row])
@@ -105,34 +96,27 @@ for row in range(data.shape[0]):
         if modal.is_open():
             with modal.container():
 
-
                 html_string_0 = '''
                 <h2> Ingredients : </h2>
-
-
-
-
 
                 <script language="javascript">
                 document.querySelector("h1").style.color = "red";
                 </script>
                 '''
                 components.html(html_string_0)
-                ingredient= data.Cleaned_Ingredients.split(',')
-
+                ingredient= ingredient.split(',')
 
                 for index, line in enumerate( ingredient):
-                    #line.lstrip("[")
                     line = re.sub("[['!@#$]", '', line)
                     st.write((index +1) ,"-" ,line )
 
+<<<<<<< Updated upstream
 
+
+=======
+>>>>>>> Stashed changes
                 html_string = '''
                 <h2> Steps : </h2>
-
-
-
-
 
                 <script language="javascript">
                 document.querySelector("h1").style.color = "red";
@@ -143,6 +127,5 @@ for row in range(data.shape[0]):
                 recipe1=recipe.split('\n')
                 for index, line in enumerate( recipe1):
                     st.write((index +1) ,"-" ,line )
-
 
                 st.write("Bon appetit")
