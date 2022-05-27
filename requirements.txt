@@ -42,4 +42,4 @@ termcolor
 
 # interface
 streamlit
-snowflake-connector
+snowflake-connector-python
