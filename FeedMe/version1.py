@@ -40,6 +40,7 @@ if st.sidebar.button('Get my recipe') :
         #st.image(results.imgs[0],width=500)
         output_list = results.pandas().xyxy[0]["name"].unique()
         output_vector = vector_output(output_list)
+        st.dataframe(output_vector)
         results.show()
         st.write('Your Fridg contains :')
         st.write('Wow! You can prepare one of those recipes: ')
