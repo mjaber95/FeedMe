@@ -42,3 +42,4 @@ termcolor
 
 # interface
 streamlit
+snowflake-connector
