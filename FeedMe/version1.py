@@ -10,6 +10,7 @@ import time
 import streamlit_modal as modal
 import streamlit.components.v1 as components
 import torch
+from FeedMe.utils import vector_output
 
 model = torch.hub.load('ultralytics/yolov5', 'custom', path='/Users/mamdouhjaber/code/mjaber95/FeedMe/YOLOv5_model/best.pt')
 
@@ -27,7 +28,7 @@ if image_file is not None:
 	file_details = {"filename":image_file.name, "filetype":image_file.type,
                             "filesize":image_file.size};
     # To View Uploaded Image
-	st.sidebar.image(load_image(image_file),width=250);
+	st.sidebar.image(load_image(image_file),width=275);
 
 if st.sidebar.button('Get my recipe') :
     if image_file is  None:
@@ -37,7 +38,8 @@ if st.sidebar.button('Get my recipe') :
         print('button clicked!')
         results = model(load_image(image_file))
         #st.image(results.imgs[0],width=500)
-        results.pandas().xyxy[0]
+        output_list = results.pandas().xyxy[0]["name"].unique()
+        output_vector = vector_output(output_list)
         results.show()
         st.write('Your Fridg contains :')
         st.write('Wow! You can prepare one of those recipes: ')
@@ -53,7 +55,7 @@ if st.sidebar.button('Get my recipe') :
             latest_iteration.text(f'Iteration {i+1}')
             bar.progress(i + 1)
             time.sleep(0.1)
-            
+
         '...and now we\'re done! Choose your recipe'
 
 def load_data(nrows):
@@ -84,7 +86,6 @@ for row in range(data.shape[0]):
 
         if modal.is_open():
             with modal.container():
-
                 html_string_0 = '''
                 <h2> Ingredients : </h2>
 
