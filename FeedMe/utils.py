@@ -93,3 +93,19 @@ def vector_output(list_1):
         else:
             V[i] = 0
     return V
+
+def score(row, vector):
+    #computes dot product
+    A = row.to_numpy()
+    row["score"] = np.matmul(A, vector)
+    return row
+
+def load_data(nrows):
+    data = pd.read_csv("/Users/mamdouhjaber/code/mjaber95/FeedMe/raw_data/Recipes/26052022_dataset.csv", nrows=nrows)
+
+    #lowercase = lambda x: str(x).lower()
+    #data.rename(lowercase, axis='columns', inplace=True)
+    #data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
+    data = data.drop(columns=['Unnamed: 0', 'Ingredients'])
+
+    return data
