@@ -38,7 +38,7 @@ ing_list = ["apple",
         "sugar",
         "tomato"]
 
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='/YOLOv5_model/best.pt')
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt', force_reload=True)
 
 #col1, col2, col3 = st.columns([3, 1])
 
