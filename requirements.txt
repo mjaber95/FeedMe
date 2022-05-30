@@ -34,3 +34,4 @@ termcolor
 # interface
 streamlit
 snowflake-connector-python
+streamlit-modal
