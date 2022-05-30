@@ -109,3 +109,43 @@ def load_data(nrows):
     data = data.drop(columns=['Unnamed: 0', 'Ingredients'])
 
     return data
+
+def vegfilter(df, vegetarian=False, vegan=False):
+    if vegan == True:
+        df_filtered = df[df['vegan']==1]
+    elif vegetarian == True:
+        df_filtered = df[df['vegetarian']==1]
+    else:
+        df_filtered = df
+    return df_filtered
+
+
+def difficulty(df, max_prep_time=10000, max_complexity=0):
+    df_filtered = df[df['Prep Time']<=max_prep_time]
+    df_filtered = df_filtered[df_filtered['complexity']<=max_complexity]
+    return df_filtered
+
+def allergencheck(df, milk = False, egg = False, mustard=False, peanut=False, soy=False, walnut=False, almond=False, hazelnut=False, pecan=False,
+cashew=False, pistachio=False, wheat=False):
+    df_f = df
+    if milk == True:
+        df_f = df_f[df_f['milk']==0]
+    if egg == True:
+        df_f = df_f[df_f['egg']==0]
+    if mustard == True:
+        df_f = df_f[df_f['mustard']==0]
+    if peanut == True:
+        df_f = df_f[df_f['peanut']==0]
+    if soy == True:
+        df_f = df_f[df_f['soy']==0]
+    if walnut == True:
+        df_f = df_f[df_f['walnut']==0]
+    if almond == True:
+        df_f = df_f[df_f['almond']==0]
+    if cashew == True:
+        df_f = df_f[df_f['cashew']==0]
+    if pistachio == True:
+        df_f = df_f[df_f['pistachio']==0]
+    if wheat == True:
+        df_f = df_f[df_f['wheat']==0]
+    return df_f
