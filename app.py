@@ -1,4 +1,4 @@
-from turtle import width
+
 from unittest import result
 import streamlit as st
 import pandas as pd
@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import os
 import shutil
 import requests
-import snowflake.connector
 import numpy as np
 from urllib.error import URLError
 from PIL import Image
