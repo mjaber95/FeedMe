@@ -5,6 +5,33 @@ import os
 from sklearn.model_selection import train_test_split
 import pandas as pd
 
+ing_list = ["apple",
+        "banana",
+        "beef",
+        "blueberry",
+        "bread",
+        "butter",
+        "carrot",
+        "cheese",
+        "chicken",
+        "chocolate",
+        "corn",
+        "egg",
+        "flour",
+        "bean",
+        "ham",
+        "cream",
+        "lime",
+        "milk",
+        "mushroom",
+        "onion",
+        "potato",
+        "shrimp",
+        "spinach",
+        "strawberry",
+        "sugar",
+        "tomato"]
+
 # Dictionary that maps class names to IDs
 # class_name_to_id_mapping = {
 
@@ -109,3 +136,7 @@ def load_data(nrows):
     data = data.drop(columns=['Unnamed: 0', 'Ingredients'])
 
     return data
+
+def load_image(image_file):
+	img = Image.open(image_file)
+	return img
