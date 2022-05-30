@@ -77,15 +77,9 @@ data = load_data(4)
 for row in range(data.shape[0]):
         one_image=data.Image_Name[row]
         recipe=data.Instructions[row]
-<<<<<<< Updated upstream
-
-
-        st.image(load_image(f"data/Food Images/{one_image}.jpg"),width=500);
-=======
         ingredient=data.Cleaned_Ingredients[row]
         st.image(load_image(f"data/Food Images/{one_image}.jpg"),width=500);
         #st.write(data.Title[row])
->>>>>>> Stashed changes
 
 
         open_modal = st.button("Recipe of " + data.Title[row])
@@ -110,11 +104,6 @@ for row in range(data.shape[0]):
                     line = re.sub("[['!@#$]", '', line)
                     st.write((index +1) ,"-" ,line )
 
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
                 html_string = '''
                 <h2> Steps : </h2>
 
