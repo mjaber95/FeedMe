@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import os
 from sklearn.model_selection import train_test_split
 import pandas as pd
+from ast import literal_eval
 
 ing_list = ["apple",
         "banana",
@@ -129,11 +130,9 @@ def score(row, vector):
 
 def load_data(nrows):
     data = pd.read_csv("/Users/chrissibierich/code/christopherbierich/FeedMe/raw_data/Recipes/3006_receipe_final.csv", nrows=nrows)
-
     #lowercase = lambda x: str(x).lower()
     #data.rename(lowercase, axis='columns', inplace=True)
     #data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
-    data = data.drop(columns=['Unnamed: 0', 'Ingredients'])
 
     return data
 
