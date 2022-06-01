@@ -5,6 +5,7 @@
 raw_data/
 data/
 *.csv
+*.pyc
 **/__pycache__/
 .env
 datasets/
