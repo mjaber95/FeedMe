@@ -24,7 +24,7 @@ model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt')
 inspection_status = False
 #col1, col2, col3 = st.columns([3, 1])
 image = Image.open('images/LogoFeedMe.png')
-st.sidebar.image(image)
+st.sidebar  .image(image)
 
 st.sidebar.header("Fridge Inspection")
 
@@ -106,33 +106,58 @@ except:
     pass
 
 
-if image_file is not None:
-    if st.sidebar.button('FeedMe'):
-        st.header("Chef's Choice:")
-        data = load_data(3000)
-        data = vegfilter(data,vegetarian,vegan)
-        data = difficulty(data,prep_time, complexity_value)
-        data = allergencheck(data, allergens_dict)
-        df = data[ing_list].apply(lambda x: score(x, st.session_state.vector), axis=1)
-        data["score"] = df["score"]
-        data = data.sort_values(by="score", ascending=False)
-        # Dataframe for troubleshooting
-        # st.dataframe(data)
 
-    if 'data' in locals():
-        row = data.head(1)
-        one_image = row.Image_Name.iloc[0]
-        recipe = row.Instructions.iloc[0]
-        ingredient = row['Ingredients'].apply(literal_eval).iloc[0]
-        st.session_state.recipe = recipe
-        st.session_state.ingredient = ingredient
-        st.image(load_image(f"raw_data/Recipes/Food Images/{one_image}.jpg"),width=500)
-        st.subheader('Ingredients:')
-        for i in ingredient:
-            st.write(i)
-        st.subheader('Instructions:')
-        st.write(recipe)
+try:
+    if image_file is not None:
+        imageLocation.image(st.session_state.image, width=300)
+        if st.sidebar.button('FeedMe'):
+            st.header("Chef's Choice:")
+            data = load_data(3000)
+            data = vegfilter(data,vegetarian,vegan)
+            data = difficulty(data,prep_time, complexity_value)
+            data = allergencheck(data, allergens_dict)
+            df = data[ing_list].apply(lambda x: score(x, st.session_state.vector), axis=1)
+            data["score"] = df["score"]
+            data = data.sort_values(by="score", ascending=False)
+            # Dataframe for troubleshooting
+            # st.dataframe(data)
 
+        if 'data' in locals():
+
+            row = data.head(1)
+            one_image = row.Image_Name.iloc[0]
+            recipe = row.Instructions.iloc[0]
+            ingredient = row['Ingredients'].apply(literal_eval).iloc[0]
+            st.session_state.recipe = recipe
+            st.session_state.ingredient = ingredient
+            st.subheader(row['Title'].iloc[0])
+
+
+            st.image(load_image(f"raw_data/Recipes/Food Images/{one_image}.jpg"),width=600)
+            expander = st.expander("Details")
+            i=1
+            prep_time=row["Prep Time Range"].iloc[0]
+            complexe=row["complexity_label"].iloc[0]
+            meal_type=row["complexity_label"].iloc[0]
+            expander.write(f"Preparation Time:  {prep_time} "  )
+            expander.write(f"Comlexity :   {complexe.capitalize()} ")
+            expander.write(f"You are going to eat :   {diet} today !   ")
+
+            st.subheader('Ingredients:')
+            for index, line in enumerate( ingredient):
+
+                st.write( '\-' ,line   )
+            st.subheader('Instructions:')
+            #st.write(recipe)
+            recipe1=recipe.split('.')
+
+            for index, line in enumerate( recipe1):
+                line = re.sub("[(['!@#$)]", '', line)
+                if index+1<len(recipe1):
+                    st.write((index+1 ) ,"-" ,line )
+
+except:
+    pass
 
 
 
