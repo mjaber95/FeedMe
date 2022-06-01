@@ -129,12 +129,6 @@ def score(row, vector):
 
 def load_data(nrows):
     data = pd.read_csv("raw_data/3105_receipe_final.csv", nrows=nrows)
-
-    #lowercase = lambda x: str(x).lower()
-    #data.rename(lowercase, axis='columns', inplace=True)
-    #data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
-
-
     return data
 
 
@@ -156,8 +150,6 @@ def difficulty(df, max_prep_time=10000, max_complexity=0):
 def allergencheck(df, allergens):
     df_f = df
     for key in allergens:
-        print(key)
-        print(df_f.shape)
         if allergens[key] == True:
             df_f = df_f[df_f[key]==0]
     return df_f
