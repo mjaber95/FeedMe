@@ -24,7 +24,7 @@ model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt')
 inspection_status = False
 #col1, col2, col3 = st.columns([3, 1])
 image = Image.open('images/LogoFeedMe.png')
-st.sidebar  .image(image)
+st.sidebar.image(image)
 
 st.sidebar.header("Fridge Inspection")
 
@@ -141,7 +141,7 @@ try:
             meal_type=row["complexity_label"].iloc[0]
             expander.write(f"Preparation Time:  {prep_time} "  )
             expander.write(f"Comlexity :   {complexe.capitalize()} ")
-            expander.write(f"You are going to eat :   {diet} today !   ")
+            #expander.write(f"You are going to eat :   {diet} today !   ")
 
             st.subheader('Ingredients:')
             for index, line in enumerate( ingredient):
