@@ -113,10 +113,14 @@ def vector_output(list_1):
                 "strawberry",
                 "sugar",
                 "tomato"]
+    meat_list = ["beef","chicken","ham"]
     V = ing_list.copy()
     for i, ing in enumerate(V):
         if ing in list_1:
-            V[i] = 1
+            if ing in meat_list:
+                V[i] = 5
+            else:
+                V[i] = 1
         else:
             V[i] = 0
     return V
@@ -128,7 +132,7 @@ def score(row, vector):
     return row
 
 def load_data(nrows):
-    data = pd.read_csv("raw_data/3105_receipe_final.csv", nrows=nrows)
+    data = pd.read_csv("raw_data/0106_receipe_final.csv", nrows=nrows)
     return data
 
 
