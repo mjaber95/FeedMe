@@ -110,7 +110,6 @@ gcp_submit_training:
 		--runtime-version=${RUNTIME_VERSION} \
 		--region ${REGION} \
 		--stream-logs
-		
 
 download_model:
 	@gsutil cp  gs://${BUCKET_NAME}/models/taxifare/model.joblib google_model.joblib
